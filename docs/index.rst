@@ -13,7 +13,7 @@ Nano是免费的新一代私有云管理软件(IaaS)，依靠高度智能的自�
 
 更提供友好的开发人员支持，满足从自用到OEM商用的全方位定制需求。
 
-本手册将快速而简要的介绍Nano平台从安装部署到日常管理的主要流程和常见功能，其他更详细内容请访问 `产品Wiki <https://github.com/project-nano/releases/wiki>` 了解
+本手册将快速而简要的介绍Nano平台从安装部署到日常管理的主要流程和常见功能，其他更详细内容请访问 `产品Wiki <https://github.com/project-nano/releases/wiki>`_ 了解
 
 .. toctree::
    :maxdepth: 2
