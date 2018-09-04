@@ -26,7 +26,7 @@ Nano集群的模块可以相互发现，自动完成组网和识别，无需管�
 
 Nano的自动发现基于组播协议实现，Nano通过 <通讯域名称:组播地址:组播端口> 的三元组定义一个独立的通讯域（默认为<"Nano":224.0.0.226:5599>），同一通讯域内模块可以相互发现、识别和通讯。
 
-如果需要在一个局域网内配置多个Nano集群，可以通过分配不同的通讯域地址来进行区分，有效的组播地址为224.0.0.0～224.0.0.255，具体请参考`Multicast address <https://en.wikipedia.org/wiki/Multicast_address>`_ 。
+如果需要在一个局域网内配置多个Nano集群，可以通过分配不同的通讯域地址来进行区分，有效的组播地址为224.0.0.0～224.0.0.255，具体请参考 `Multicast address <https://en.wikipedia.org/wiki/Multicast_address>`_ 。
 
 工作原理如图：
 
@@ -43,7 +43,7 @@ Nano的自动发现基于组播协议实现，Nano通过 <通讯域名称:组播
 
 .. image:: images/1_4_resource_model.png
 
-Nano平台搭建完成后，会有一个空的Default资源池，在尝试创建云主机之前，请记得**首先往资源池中添加一个可用的Cell节点**。
+Nano平台搭建完成后，会有一个空的Default资源池，在尝试创建云主机之前，请记得 **首先往资源池中添加一个可用的Cell节点** 。
 
 镜像
 ====
@@ -57,3 +57,8 @@ Nano平台搭建完成后，会有一个空的Default资源池，在尝试创建
 你可以直接将准备好的镜像上传到平台中并开始使用，节省制作模板的时间。可以访问Nano官方网站 `下载 <https://nanos.cloud/zh-cn/download.html>`_ 页面，获取预置的CentOS 7镜像。
 
 .. image:: images/1_5_images_overview.png
+
+
+----
+
+了解了Nano的基本概念，就可以开始进行平台的部署与安装了
