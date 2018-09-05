@@ -1,7 +1,4 @@
-.. Quick Start Guide documentation master file, created by
-   sphinx-quickstart on Mon Sep 03 22:49:28 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. index .
 
 ======================
 Nano快速入门手册
@@ -26,6 +23,7 @@ Nano追求尽最大可能采用智能化和自动化手段替代繁琐易出错�
    :maxdepth: 2
    :caption: Contents:
 
+   index
    concept
    deployment
    instance
