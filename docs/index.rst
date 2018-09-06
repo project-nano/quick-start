@@ -30,3 +30,4 @@ Nano追求尽最大可能采用智能化和自动化手段替代繁琐易出错�
    deployment
    instance
    platform
+   community
