@@ -122,14 +122,16 @@ latex_elements = {
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
+
+    'extraclassoptions': 'UTF8'
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'QuickStartGuide.tex', u'Quick Start Guide Documentation',
-     u'Akumas', 'manual'),
+    (master_doc, 'quick_start_guide.tex', u'Quick Start Guide Documentation',
+     u'Akumas', 'ctexart'),
 ]
 
 
