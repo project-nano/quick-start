@@ -23,12 +23,12 @@ Installer会自行选择最合适的配置进行建议， **对于初次安装Na
 
 安装Nano平台，只需要解压并执行Installer即可。只需要选择需要在当前服务器部署的模块，Installer会自动完成参数配置、依赖安装和模块部署。
 
-以v0.3.1为例，在shell执行以下指令：
+以v0.4.1为例，在shell执行以下指令：
 
 ::
 
-  $wget https://nanos.cloud/media/nano_installer_0.3.1.tar.gz
-  $tar zxfv nano_installer_0.3.1.tar.gz
+  $wget https://nanos.cloud/media/nano_installer_0.4.1.tar.gz
+  $tar zxfv nano_installer_0.4.1.tar.gz
   $cd nano_installer
   $./installer
 
@@ -54,7 +54,7 @@ Installer在安装过程中，会选择模块启动监听服务的网卡和地�
 - status: 检查模块是否在运行中
 - halt: 强制终止模块运行
 
-模块安装完成后，需要启动模块以提供服务，模块默认安装在/opt/nano目录下。使用命令手动启动所有模块（假定所有模块安装在同一台服务器）， **请注意，必须首先启动Core** 。
+模块安装完成后，需要启动模块以提供服务，模块默认安装在/opt/nano目录下。使用命令手动启动所有模块（假定所有模块安装在同一台服务器）， **请注意，必须首先启动Core模块** 。
 
 ::
 
@@ -67,8 +67,125 @@ Installer在安装过程中，会选择模块启动监听服务的网卡和地�
 
 FrontEnd模块成功启动后，Console会输出一个形如"192.168.6.3:5870"的监听地址，使用Chrome或者Firefox访问这个地址就可以开始通过Web门户管理Nano平台了。
 
+设置共享存储(可选)
+======================
 
-平台准备
+默认情况下，Nano中云主机实例的磁盘数据存储在承载Cell节点的本地存储系统中，无需额外配置，性价比也最高。不过管理员也可以指定将数据存储在独立的NFS文件服务器上，防止Cell节点故障影响云主机服务，也可以更方便地在节点之间迁移实例，重新均衡负载，以提升集群整体性能和使用寿命。
+
+使用共享存储，只需要创建一个存储资源池，然后与计算资源池关联。关联之后，所有添加到该资源池的资源节点，都会由Nano自动配置为使用共享存储，无需用户干预和设置。
+
+一个存储池对应一个共享存储路径，一个存储池可以同时为多个计算池提供后端存储，但是每个计算资源池只能绑定一个存储池。
+
+配置NFS服务器
+................
+
+要让Nano正常使用NFS存储后端，首先需要正确配置好NFS服务器。
+
+假定NFS Server地址为192.168.3.138，共享路径为/var/nfs/nano，Nano集群网段为192.168.3.0/24。
+
+以CentOS 7.5为例，在NFS Server端执行以下指令：
+
+::
+
+    开启防火墙端口
+    $firewall-cmd --zone=public --add-service=nfs --permanent
+    $firewall-cmd --reload
+
+    安装NFS服务并设置为开机启动
+    $yum install nfs-utils
+    $systemctl start nfs
+    $systemctl enable nfs
+
+    创建路径
+    $mkdir -p /var/nfs/nano
+
+由于NFS是将客户端用户直接映射到服务端用户进行权限判断，当管理员使用不同的用户运行Nano模块和KVM服务时，需要设置不同的访问规则。
+
+
+
+使用root用户运行Nano和KVM/QEMU服务
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+NFS默认禁止将客户端root映射为服务端root用户，所以配置路径时需要使用no_root_squash选项。
+
+在NFS Server执行
+
+::
+
+  创建规则文件
+  $vi /etc/exports
+
+  将以下规则写入文件
+  /var/nfs/nano 192.168.3.0/24(rw,sync,no_subtree_check,no_root_squash)
+
+  映射共享路径
+  $exportfs -a
+
+使用普通用户运行Nano和KVM/QEMU服务
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+对于普通用户，NFS是根据客户端用户的uid/gid映射到本地相同id用户和组进行权限校验。
+
+假定Cell节点运行Nano和KVM/QEMU的是用户及用户组为nano/nano，对应的uid/gid为108，则需要在NFS Server创建相同ID的用户，并将其设置为共享路径的owner。
+
+在NFS Server执行以下指令：
+
+::
+
+  $groupadd nano -g 108
+  $useradd nano -u 108 -g nano -Z system_u
+  $chown nano:nano /var/nfs/nano
+  $chmod 755 /var/nfs/nano
+
+创建映射规则并共享
+
+::
+
+  创建规则文件
+  #vi /etc/exports
+
+  写入以下内容并保存
+  /var/nfs/nano 192.168.3.0/24(rw,sync,no_subtree_check)
+
+  映射共享路径
+  #exportfs -a
+
+----
+
+当NFS Server配置完成后，请先使用一个客户端服务器手工mount验证设置是否正确，以减少后续Nano自动配置的故障可能。
+
+
+创建存储池
+.............
+
+NFS Server配置完成后，在Web门户上选择"Storage"=>"Create"创建新的共享存储池
+
+.. image:: images/2_choose_create_storage.png
+
+为存储池设定名称nfs-pool1，输入服务器192.168.3.138和共享路径/var/nfs/nano，点击创建
+
+.. image:: images/2_create_storage.png
+
+创建成功后返回存储清单，能够看到新建的存储池
+
+.. image:: images/2_create_storage_success.png
+
+修改存储设置
+...............
+
+共享存储创建完成后，可以修改已有计算池的关联存储或者新建一个新的计算池，当新的Cell节点加入资源池后，Nano会自动同步并设置存储配置，无需用户干预。
+
+已修改默认计算池default为例，在"Resource Pool"的资源池清单中，点击default资源池的"modify"图标，在编辑界面下拉菜单中选择新建的nfs-pool1
+
+.. image:: images/2_modify_pool.png
+
+保存后查看资源池清单属性检查是否生效
+
+.. image:: images/2_modify_pool_success.png
+
+设置完成后，就可以开始往资源池中添加资源节点了，使用了共享存储的Cell节点创建实例、快照时，都会自动保存到NFS Server的共享路径上。
+
+添加资源
 ============
 
 添加资源节点
@@ -76,7 +193,7 @@ FrontEnd模块成功启动后，Console会输出一个形如"192.168.6.3:5870"�
 
 Nano平台初次启动时，会默认创建一个名为Default的计算资源池，但是该资源池没有可用资源。你需要先将一个Cell节点添加到该资源池，以便有足够资源分配云主机。
 
-在Web门户上，选择"Compute Pool"菜单，点击default资源池的"cells"按钮，进入资源节点清单：
+在Web门户上，选择"Resource Pool"菜单，点击default资源池的"cells"按钮，进入资源节点清单：
 
 .. image:: images/2_1_compute_pool.png
 
@@ -92,7 +209,14 @@ Nano平台初次启动时，会默认创建一个名为Default的计算资源池
 
 .. image:: images/2_4_cell_online.png
 
-此时，就可以在"Compute Pool"或者"Instances"菜单创建新主机实例了。
+**请注意：如果资源池使用了共享存储，节点加入时可能会因为配置耗时太久产生超时提醒，这种情况不影响使用，重新刷新节点清单检查状态即可**
+
+*对于使用共享存储的Cell节点，添加后请在节点清单中点击"Detail"图标，查看存储加载状态，确保后端存储已经成功挂载，如下图所示*
+
+.. image:: images/2_storage_attached.png
+
+
+资源节点状态可用后，就可以在"Resource Pool"或者"Instances"菜单创建新主机实例了。
 
 上传镜像
 ............
