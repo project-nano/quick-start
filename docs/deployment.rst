@@ -23,12 +23,12 @@ Installer会自行选择最合适的配置进行建议， **对于初次安装Na
 
 安装Nano平台，只需要解压并执行Installer即可。只需要选择需要在当前服务器部署的模块，Installer会自动完成参数配置、依赖安装和模块部署。
 
-以v0.4.1为例，在shell执行以下指令：
+以v0.5.1为例，在shell执行以下指令：
 
 ::
 
-  $wget https://nanos.cloud/media/nano_installer_0.4.1.tar.gz
-  $tar zxfv nano_installer_0.4.1.tar.gz
+  $wget https://nanos.cloud/media/nano_installer_0.5.1.tar.gz
+  $tar zxfv nano_installer_0.5.1.tar.gz
   $cd nano_installer
   $./installer
 
@@ -175,11 +175,13 @@ NFS Server配置完成后，在Web门户上选择"Storage"=>"Create"创建新的
 
 共享存储创建完成后，可以修改已有计算池的关联存储或者新建一个新的计算池，当新的Cell节点加入资源池后，Nano会自动同步并设置存储配置，无需用户干预。
 
-已修改默认计算池default为例，在"Resource Pool"的资源池清单中，点击default资源池的"modify"图标，在编辑界面下拉菜单中选择新建的nfs-pool1
+以修改默认计算池default为例，在"Resource Pool"的资源池清单中，点击default资源池的"modify"图标，在编辑界面下拉菜单中选择新建的nfs-pool1。
+
+建议需要保证云主机实例高可用的用户打开"Failover/故障迁移"开关，当故障迁移生效时，如果Nano检测到某一Cell节点失联，会将该节点承载的云主机实例自动迁移到集群内其他节点恢复服务，详见“平台管理-故障迁移”章节。
 
 .. image:: images/2_modify_pool.png
 
-保存后查看资源池清单属性检查是否生效
+修改后检查清单中相应属性和图标是否生效
 
 .. image:: images/2_modify_pool_success.png
 
