@@ -170,6 +170,24 @@ Nano中云主机是基于资源池创建的，Core收到创建云主机请求时
 
 .. image:: images/3_21_eject_media.png
 
+重置系统
+==========
+
+当需要恢复云主机操作系统或者安装新系统时，可以选择直接从系统已有镜像重置云主机系统。
+
+首先停止云主机，在功能按钮中选择“重置系统”
+
+.. image:: images/3_reset_system_1.png
+
+重置界面里选择需要安装的镜像，点击开始重置。
+
+.. image:: images/3_reset_system_2.png
+
+成功完成后，云主机的系统磁盘就会恢复到新装状态。
+
+.. image:: images/3_reset_system_3.png
+
+
 实例迁移
 ==========
 

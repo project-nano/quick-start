@@ -12,7 +12,7 @@ Installer会自行选择最合适的配置进行建议， **对于初次安装Na
 
 - 支持虚拟化的X86服务器或者打开嵌套虚拟化（Intel VT-x/AMD-v）的虚拟机
 - 2核4G内存50GB磁盘和一个网络设备
-- CentOS 7.5(1804) Minimal
+- CentOS 7.6(1810) Minimal
 - 操作系统安装完成并且网络就绪
 - 如有raid/lvm请先完成配置，再进行Nano安装
 
@@ -23,12 +23,12 @@ Installer会自行选择最合适的配置进行建议， **对于初次安装Na
 
 安装Nano平台，只需要解压并执行Installer即可。只需要选择需要在当前服务器部署的模块，Installer会自动完成参数配置、依赖安装和模块部署。
 
-以v0.5.1为例，在shell执行以下指令：
+以v0.7.1为例，在shell执行以下指令：
 
 ::
 
-  $wget https://nanos.cloud/media/nano_installer_0.5.1.tar.gz
-  $tar zxfv nano_installer_0.5.1.tar.gz
+  $wget https://nanos.cloud/media/nano_installer_0.7.1.tar.gz
+  $tar zxfv nano_installer_0.7.1.tar.gz
   $cd nano_installer
   $./installer
 
@@ -66,6 +66,21 @@ Installer在安装过程中，会选择模块启动监听服务的网卡和地�
   $./frontend start
 
 FrontEnd模块成功启动后，Console会输出一个形如"192.168.6.3:5870"的监听地址，使用Chrome或者Firefox访问这个地址就可以开始通过Web门户管理Nano平台了。
+
+初始化系统
+=============
+
+初次打开Nano管理页面，会提示输入账号密码，创建初始管理员，密码要求长度不小于8位，必须包含数字、小写字母和大写字母各一个。
+
+.. image:: images/2_initial_system.png
+
+创建成功后进入登录界面，登录成功后可以开始管理Nano平台或者为你的团队创建更多用户账号。
+
+.. image:: images/2_login.png
+
+界面底部会显示已登录用户，点击按钮注销。
+
+.. image:: images/2_logout.png
 
 设置共享存储(可选)
 ======================
