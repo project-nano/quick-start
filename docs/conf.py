@@ -19,14 +19,14 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'Quick Start Guide'
+project = u'Nano Quick Start Guide'
 copyright = u'2018, Akumas'
 author = u'Akumas'
 
 # The short X.Y version
 version = u''
 # The full version, including alpha/beta/rc tags
-release = u'0.3.1'
+release = u'1.0.0'
 
 
 # -- General configuration ---------------------------------------------------

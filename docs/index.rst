@@ -56,11 +56,10 @@ Nano使用MIT许可，无论自用、修改或者商用都无限制
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-   index
    concept
    deployment
    instance
    platform
+   faq
    community
