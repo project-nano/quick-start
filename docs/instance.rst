@@ -2,7 +2,7 @@
 
 .. contents:: 本章目录
   :depth: 2
-  
+
 -------------
 云主机管理
 -------------
@@ -249,14 +249,14 @@ Nano中云主机是基于资源池创建的，Core收到创建云主机请求时
 
 批量创建功能能够一次性创建一批配置相同的云主机，批量创建与原有创建功能一样，同样能够选择从源镜像克隆或者使用CloudInit进行实例初始化。在云主机列表中，点击"批量创建"按钮启用。
 
-.. image:: images/3_batch_create_cn.png
+.. image:: images/3_batch_create.png
 
 批量删除
 ------------
 
 云主机列表界面，点击进入批量模式，就可以同时选中多个实例，一次性删除。
 
-.. image:: images/3_batch_delete_cn.png
+.. image:: images/3_batch_delete.png
 
 批量停止
 ------------

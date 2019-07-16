@@ -179,7 +179,7 @@ NFS默认禁止将客户端root映射为服务端root用户，所以配置路径
 创建存储池
 .............
 
-NFS Server配置完成后，在Web门户上选择"Storage"=>"Create"创建新的共享存储池
+NFS Server配置完成后，在Web门户上选择"存储池"=>"创建"创建新的共享存储池
 
 .. image:: images/2_choose_create_storage.png
 
@@ -196,7 +196,7 @@ NFS Server配置完成后，在Web门户上选择"Storage"=>"Create"创建新的
 
 共享存储创建完成后，可以修改已有计算池的关联存储或者新建一个新的计算池，当新的Cell节点加入资源池后，Nano会自动同步并设置存储配置，无需用户干预。
 
-以修改默认计算池default为例，在"Resource Pool"的资源池清单中，点击default资源池的"modify"图标，在编辑界面下拉菜单中选择新建的nfs-pool1。
+以修改默认计算池default为例，在"资源池"菜单的资源池清单中，点击default资源池的"修改"图标，在编辑界面下拉菜单中选择新建的nfs-pool1。
 
 建议需要保证云主机实例高可用的用户打开"Failover/故障迁移"开关，当故障迁移生效时，如果Nano检测到某一Cell节点失联，会将该节点承载的云主机实例自动迁移到集群内其他节点恢复服务，详见“平台管理-故障迁移”章节。
 
@@ -262,11 +262,11 @@ NFS Server配置完成后，在Web门户上选择"Storage"=>"Create"创建新的
 
 Nano平台初次启动时，会默认创建一个名为Default的计算资源池，但是该资源池没有可用资源。你需要先将一个Cell节点添加到该资源池，以便有足够资源分配云主机。
 
-在Web门户上，选择"Resource Pool"菜单，点击default资源池的"cells"按钮，进入资源节点清单：
+在Web门户上，选择"资源池"菜单，点击default资源池的"Cell节点"按钮，进入资源节点清单：
 
 .. image:: images/2_1_compute_pool.png
 
-当前没有任何资源节点，点击"Add Cell"按钮，进入添加页面
+当前没有任何资源节点，点击"添加"按钮，进入添加页面
 
 .. image:: images/2_2_add_cell.png
 
@@ -285,7 +285,7 @@ Nano平台初次启动时，会默认创建一个名为Default的计算资源池
 .. image:: images/2_storage_attached.png
 
 
-资源节点状态可用后，就可以在"Resource Pool"或者"Instances"菜单创建新主机实例了。
+资源节点状态可用后，就可以在"资源池"或者"云主机"菜单创建新主机实例了。
 
 上传镜像
 ............
@@ -301,7 +301,7 @@ Nano平台初次启动时，会默认创建一个名为Default的计算资源池
 
 Nano官网 `下载 <https://nanos.cloud/zh-cn/download.html>`_ 页面已经提供了CentOS 7.5 Minimal预置镜像（其中一个预装了Cloud Init）。
 
-下载镜像，选择Web门户的"Images"=>"UPLOAD"上传到平台，后续创建云主机时就可以选择从镜像克隆了。
+下载镜像，选择Web门户的"磁盘镜像"=>"上传"到平台，后续创建云主机时就可以选择从镜像克隆了。
 
 .. image:: images/2_5_upload_image.png
 
