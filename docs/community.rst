@@ -12,6 +12,8 @@ API文档地址： https://nanocn.docs.apiary.io/
 
 QQ群： Nano Cloud(819161083)
 
+手册地址: https://nanocloud.readthedocs.io/projects/guide/zh_CN/latest/
+
 ----
 
 感谢关注Nano，衷心期待您的加入

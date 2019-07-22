@@ -1,7 +1,7 @@
 .. index .
 
 ======================
-Nano快速入门手册
+概览
 ======================
 
 说明
@@ -12,6 +12,12 @@ Nano快速入门手册
 手册内容对应 Nano v1.0.0 版本，实际内容请以最终发布版本为准
 
 欢迎访问官方网站 https://nanos.cloud/ 或者加入官方QQ群 Nano Cloud( **819161083** )了解更多内容
+
+作者: Akumas (bokuore@github.com)
+
+Git库: https://github.com/project-nano
+
+手册地址: https://nanocloud.readthedocs.io/projects/guide/zh_CN/latest/
 
 前言
 ======
@@ -57,6 +63,7 @@ Nano使用MIT许可，无论自用、修改或者商用都无限制
 .. toctree::
    :maxdepth: 2
 
+   index
    concept
    deployment
    instance
